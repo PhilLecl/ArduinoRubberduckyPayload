@@ -31,6 +31,8 @@ You can use this basic template for your Arduino sketches:
   
     void loop() {} // As the payload should only be executed once, void loop stays empty
 
+This template can also be found in the Arduino IDE under *File > Examples > RubberduckyPayload > template*.
+
 ## Inspiration
 
 This project was inspired by [duck2spark by MaMe82 (Marcus Mengs)](https://github.com/mame82/duck2spark#duck2spark-by-mame82-marcus-mengs) who developed a similar project for the Digispark.

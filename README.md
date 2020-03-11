@@ -31,7 +31,7 @@ You can use this basic template for your Arduino sketches:
   
     void loop() {} // As the payload should only be executed once, void loop stays empty
 
-This template can also be found in the Arduino IDE under *File > Examples > RubberduckyPayload > template*.
+This template can also be found in the Arduino IDE under *File > Examples > RubberduckyPayload > template* once the library is installed.
 
 ## Inspiration
 

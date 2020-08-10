@@ -2,7 +2,7 @@
 
 from sys import argv
 
-def main():
+def print_array():
     filename = argv[1] # The first parameter is the name of the binary file.
 
     chunksize = 20 # Print 20 bytes per line by default.
@@ -34,4 +34,4 @@ def main():
         print("};")
 
 if __name__ == '__main__':
-    main()
+    print_array()

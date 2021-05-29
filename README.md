@@ -1,38 +1,40 @@
 # ArduinoRubberduckyPayload
-This project consists of an Arduino library ("RubberduckyPayload") which provides a function able to execute an encoded USB-Rubber-Ducky payload as well as a simple Python script ("bintoarray.py") to convert an encoded payload into text that can be pasted into an Arduino sketch so that it can be used by the library.
 
-## Contents
-* ### RubberduckyPayload
-  This folder contains the aforementioned Arduino library.  
-  The library uses parts of the official [Arduino Keyboard library](https://github.com/arduino-libraries/Keyboard).
-* ### BinToArray
-  This folder contains the aforementioned Python script.
+Run Rubberducky payloads on an Arduino.
 
 ## Usage
-In order to use the RubberduckyPayload Arduino library, you need to clone/download the project, open the Arduino IDE, navigate to *Sketch > Include Library > Add .ZIP Library* and the select the "RubberduckyPayload" folder.  
-You will then be able to use the library by adding `#include "RubberduckyPayload.h"` to the beginning of your sketch.
 
-The library basically only provides a single function, `RubberduckyPayload.execute(duckraw_size, duckraw)`, where "duckraw_size" is the number of bytes the payload contains and "duckraw" is an array of bytes (uint8_t) stored in the program memory.
+1. Install the Arduino library by going to *Sketch>Include Library>Add .ZIP Library* in the Arduino IDE and selecting
+   the `RubberduckyPayload` folder.
+2. Convert an [encoded](https://github.com/hak5darren/USB-Rubber-Ducky/blob/master/Encoder/encoder.jar) Rubberducky
+   payload to an Arduino array: `$ ./bin2array.py BIN_FILE [CHUNK_SIZE]`
+3. In the Arduino IDE, open *File>Examples>RubberduckyPayload>template* and paste the output of `bin2array.py` at the
+   marked spot.
 
-In order to use the Python script, you need to have a functioning Python3 installation. You can the execute it by opening a terminal / command line and typing `python3 <path to the script> <path to the encoded Rubberducky payload> [maximum number of bytes to put into a single line]`. The last parameter is optional and defaults to 20.  
-As the script has a shebang at the beginning, you can also make it executable (`chmod +x bintoarray.py`) and run it directly (`./bintoarray.py <encoded payload> [max. number of bytes per line]`).
+### Example output of `bin2array.py`
 
-## Template
-You can use this basic template for your Arduino sketches:
+    const unsigned int duckraw_size = 22;
+    const PROGMEM uint8_t duckraw [duckraw_size] = {
+      0xb, 0x2, 0x8, 0x0, 0xf, 0x0, 0xf, 0x0, 0x12, 0x0, 0x2c, 0x0, 0x1a, 0x2, 0x12, 0x0, 0x15, 0x0, 0xf, 0x0,
+      0x7, 0x0
+    };
+
+### Template sketch
 
     #include "RubberduckyPayload.h"
     
     // Paste the output of the Python script here.
     
     void setup() {
-        delay(1000); // 1 second delay in order to give the computer time to recognise the Arduino.
-        RubberduckyPayload.execute(duckraw_size, duckraw); // Execute the payload.
+      delay(1000); // 1 second delay in order to give the computer time to recognise the Arduino.
+      RubberduckyPayload.execute(duckraw_size, duckraw); // Execute the payload.
     }
-  
+    
     void loop() {} // As the payload should only be executed once, void loop stays empty
 
-This template can also be found in the Arduino IDE under *File > Examples > RubberduckyPayload > template* once the library is installed.
+## Credits
 
-## Inspiration
+This project was inspired by [duck2spark by MaMe82 (Marcus Mengs)](https://github.com/mame82/duck2spark).
 
-This project was inspired by [duck2spark by MaMe82 (Marcus Mengs)](https://github.com/mame82/duck2spark#duck2spark-by-mame82-marcus-mengs) who developed a similar project for the Digispark.
+The `RubberduckyPayload` Arduino library uses code from
+the [Arduino Keyboard library](https://github.com/arduino-libraries/Keyboard).
